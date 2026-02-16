@@ -1,0 +1,3 @@
+DATABASE_URL=postgresql://user:password@ep-xxxx.us-east-2.aws.neon.tech/neondb?sslmode=require
+BETTER_AUTH_SECRET=replace-with-random-string-at-least-32-characters
+BETTER_AUTH_URL=http://127.0.0.1:4321

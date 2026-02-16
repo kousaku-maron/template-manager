@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Avatar } from '../components/Avatar';
+import { SignOutButton } from '../components/SignOutButton';
+
+const user = Astro.locals.user;
+const session = Astro.locals.session;
+
+if (!user || !session) {
+  return Astro.redirect('/login');
+}
+---
+
+<BaseLayout title="Account | Astro Cloudflare Blog">
+  <div class="page-header">
+    <h1>Account</h1>
+    <p class="muted text-sm">Manage your profile and session.</p>
+  </div>
+
+  <div class="settings-grid">
+    <section class="card stack">
+      <h2 class="settings-section-title">Profile</h2>
+      <div class="profile-header">
+        <Avatar name={user.name ?? user.email ?? '?'} />
+        <div>
+          <p class="profile-name">{user.name}</p>
+          <p class="muted text-sm">{user.email}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card stack">
+      <h2 class="settings-section-title">Session</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="form-label">User ID</span>
+          <span class="info-value">{user.id}</span>
+        </div>
+        <div class="info-item">
+          <span class="form-label">Session ID</span>
+          <span class="info-value">{session.id}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="settings-section-title">Sign out</h2>
+      <p class="muted text-sm" style="margin-bottom: 16px;">Sign out of your account on this device.</p>
+      <SignOutButton client:load />
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-header {
+    margin-bottom: 28px;
+  }
+  .page-header h1 {
+    font-size: 1.75rem;
+    margin: 0 0 4px;
+  }
+
+  .settings-grid {
+    display: grid;
+    gap: 16px;
+    max-width: 560px;
+  }
+
+  .settings-section-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0 0 16px;
+    color: var(--text);
+  }
+
+  .profile-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .profile-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 2px;
+  }
+
+  .info-grid {
+    display: grid;
+    gap: 14px;
+  }
+  .info-item {
+    display: grid;
+    gap: 4px;
+  }
+  .info-value {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+    background: var(--bg);
+    padding: 6px 10px;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    word-break: break-all;
+  }
+</style>

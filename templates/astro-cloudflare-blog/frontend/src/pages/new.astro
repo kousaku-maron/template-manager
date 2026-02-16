@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { PostForm } from '../components/PostForm';
+---
+
+<BaseLayout title="New Post | Astro Cloudflare Blog">
+  <div class="page-header">
+    <h1>New post</h1>
+    <p class="muted text-sm">Share your thoughts with the world.</p>
+  </div>
+
+  <section class="card">
+    <PostForm mode="create" client:load />
+  </section>
+</BaseLayout>
+
+<style>
+  .page-header {
+    margin-bottom: 28px;
+  }
+  .page-header h1 {
+    font-size: 1.75rem;
+    margin: 0 0 4px;
+  }
+</style>

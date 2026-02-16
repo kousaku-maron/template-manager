@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { listPosts } from '../lib/server/api';
+import type { PostResponse } from '../lib/server/api';
+import { PostCard } from '../components/PostCard';
+import { EmptyState } from '../components/EmptyState';
+
+let posts: PostResponse[] = [];
+let error = '';
+
+try {
+  posts = await listPosts(Astro.locals.db);
+} catch (e) {
+  error = e instanceof Error ? e.message : 'Unknown error';
+}
+---
+
+<BaseLayout title="Posts | Astro Cloudflare Blog">
+  <div class="feed-header">
+    <h1 class="feed-heading">Recent posts</h1>
+    {posts.length > 0 && (
+      <span class="feed-count">{posts.length}</span>
+    )}
+  </div>
+
+  <hr class="feed-divider" />
+
+  {error ? (
+    <div class="feed-message">
+      <p class="muted">{error}</p>
+    </div>
+  ) : null}
+
+  {posts.length === 0 && !error ? (
+    <EmptyState
+      title="No posts yet"
+      description="Be the first to share something."
+      actionLabel="Write a post"
+      actionHref="/new"
+    />
+  ) : (
+    <section class="post-list">
+      {posts.map((post) => (
+        <PostCard
+          id={post.id}
+          title={post.title}
+          excerpt={post.excerpt}
+          content={post.content}
+          createdAt={post.created_at}
+        />
+      ))}
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .feed-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding-bottom: 0;
+  }
+  .feed-heading {
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.03em;
+  }
+  .feed-count {
+    font-size: 0.875rem;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .feed-divider {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 16px 0 0;
+  }
+  .feed-message {
+    padding: 32px 0;
+  }
+</style>

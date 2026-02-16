@@ -1,0 +1,9 @@
+node_modules
+.pnpm-store
+.env
+.dev.vars
+.wrangler
+.DS_Store
+frontend/dist
+frontend/.astro
+.turbo

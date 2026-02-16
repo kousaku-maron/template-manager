@@ -1,0 +1,17 @@
+{
+  "name": "astro-cloudflare-blog-template",
+  "private": true,
+  "packageManager": "pnpm@10.29.3",
+  "scripts": {
+    "dev": "turbo run dev --filter=@astro-cloudflare-blog/web",
+    "dev:web": "turbo run dev --filter=@astro-cloudflare-blog/web",
+    "build": "turbo run build --filter=@astro-cloudflare-blog/web",
+    "typecheck": "turbo run typecheck --filter=@astro-cloudflare-blog/web",
+    "db:auth:generate": "pnpm --filter @astro-cloudflare-blog/web db:auth:generate",
+    "db:generate": "pnpm --filter @astro-cloudflare-blog/web db:generate",
+    "db:migrate": "pnpm --filter @astro-cloudflare-blog/web db:migrate"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.6"
+  }
+}

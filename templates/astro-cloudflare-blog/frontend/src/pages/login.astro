@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SignInForm } from '../components/SignInForm';
+---
+
+<BaseLayout title="Sign in | Astro Cloudflare Blog" authPage>
+  <div class="card stack">
+    <div>
+      <h1 class="auth-heading">Welcome back</h1>
+      <p class="auth-sub">Sign in to your account</p>
+    </div>
+    <SignInForm client:load />
+  </div>
+
+  <p class="auth-footer">
+    Don't have an account? <a href="/signup" class="link-accent">Sign up</a>
+  </p>
+</BaseLayout>

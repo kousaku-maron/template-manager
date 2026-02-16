@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getPostById } from '../../../lib/server/api';
+
+const postId = Astro.params.postId || '';
+const post = postId ? await getPostById(Astro.locals.db, postId) : null;
+
+if (!post) {
+  return Astro.redirect('/');
+}
+
+const isOwner = Boolean(Astro.locals.user && Astro.locals.user.id === post.user_id);
+const formattedDate = new Date(post.created_at).toLocaleDateString('ja-JP', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const contentText = post.content;
+const cjk = (contentText.match(/[\u3000-\u9fff\uf900-\ufaff]/g) || []).length;
+const words = contentText.replace(/[\u3000-\u9fff\uf900-\ufaff]/g, '').split(/\s+/).filter(Boolean).length;
+const readMin = Math.max(1, Math.round((words + cjk * 0.5) / 200));
+---
+
+<BaseLayout title={`${post.title} | Astro Cloudflare Blog`}>
+  <a href="/" class="back-nav">&larr; All posts</a>
+
+  <article class="post-article">
+    <header class="post-header">
+      <div class="post-meta">
+        <time>{formattedDate}</time>
+        <span class="post-meta-dot"></span>
+        <span>{readMin} min read</span>
+      </div>
+      <h1 class="post-title">{post.title}</h1>
+    </header>
+
+    <div class="post-body">
+      {post.content}
+    </div>
+  </article>
+
+  {isOwner ? (
+    <div class="post-actions">
+      <a href={`/posts/${postId}/edit`} class="btn btn-secondary">Edit this post</a>
+    </div>
+  ) : null}
+</BaseLayout>
+
+<style>
+  .back-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 20px;
+    transition: color 150ms ease;
+  }
+  .back-nav:hover {
+    color: var(--accent);
+  }
+
+  .post-article {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 40px 36px;
+    box-shadow: var(--shadow);
+  }
+
+  .post-header {
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .post-meta-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--muted);
+    opacity: 0.5;
+  }
+
+  .post-title {
+    font-size: 2.125rem;
+    line-height: 1.25;
+    margin: 0;
+    letter-spacing: -0.025em;
+  }
+
+  .post-body {
+    font-size: 1.0625rem;
+    line-height: 1.85;
+    color: var(--text-secondary);
+    white-space: pre-wrap;
+  }
+
+  .post-actions {
+    margin-top: 16px;
+  }
+
+  @media (max-width: 640px) {
+    .post-article {
+      padding: 24px 20px;
+    }
+    .post-title {
+      font-size: 1.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,34 @@
+{
+  "name": "@astro-cloudflare-blog/web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "typecheck": "astro check",
+    "preview": "astro preview",
+    "deploy": "wrangler deploy",
+    "db:auth:generate": "pnpm dlx @better-auth/cli@latest generate --output ./db/schema/auth.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^12.6.8",
+    "@astrojs/preact": "^4.1.3",
+    "@neondatabase/serverless": "^1.0.1",
+    "@tailwindcss/vite": "^4.1.18",
+    "astro": "^5.14.1",
+    "better-auth": "^1.4.13",
+    "drizzle-orm": "^0.44.6",
+    "preact": "^10.28.3",
+    "tailwindcss": "^4.1.18",
+    "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "drizzle-kit": "^0.31.0",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.45.0"
+  }
+}

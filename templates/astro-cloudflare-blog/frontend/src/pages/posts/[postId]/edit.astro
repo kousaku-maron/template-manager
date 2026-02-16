@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getPostById } from '../../../lib/server/api';
+import { PostForm } from '../../../components/PostForm';
+
+const postId = Astro.params.postId || '';
+if (!postId) {
+  return Astro.redirect('/');
+}
+
+const post = await getPostById(Astro.locals.db, postId);
+if (!post) {
+  return Astro.redirect('/');
+}
+
+const user = Astro.locals.user;
+if (!user) {
+  return Astro.redirect('/login');
+}
+
+if (post.user_id !== user.id) {
+  return Astro.redirect(`/posts/${postId}`);
+}
+---
+
+<BaseLayout title={`Edit: ${post.title} | Astro Cloudflare Blog`}>
+  <div class="page-header">
+    <a href={`/posts/${postId}`} class="back-nav">&larr; Back to post</a>
+    <h1>Edit post</h1>
+  </div>
+
+  <section class="card">
+    <PostForm
+      mode="edit"
+      postId={postId}
+      initialTitle={post.title}
+      initialExcerpt={post.excerpt ?? ''}
+      initialContent={post.content}
+      client:load
+    />
+  </section>
+</BaseLayout>
+
+<style>
+  .back-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 8px;
+    transition: color 150ms ease;
+  }
+  .back-nav:hover {
+    color: var(--accent);
+  }
+
+  .page-header {
+    margin-bottom: 28px;
+  }
+  .page-header h1 {
+    font-size: 1.75rem;
+    margin: 0;
+  }
+</style>
