@@ -3,7 +3,12 @@
   "version": "0.1.0",
   "description": "Scaffold projects from repository templates.",
   "type": "module",
-  "bin": "./bin/cli.js",
+  "bin": {
+    "template-manager": "./bin/cli.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "bin",
     "src",
