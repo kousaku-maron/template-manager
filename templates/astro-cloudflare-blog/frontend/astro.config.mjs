@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   output: 'server',
-  integrations: [preact()],
+  integrations: [preact({ compact: true })],
   vite: {
     plugins: [tailwindcss()],
   },

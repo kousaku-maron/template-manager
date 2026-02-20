@@ -1,10 +1,11 @@
-name = "astro-cloudflare-blog-web"
+name = "astro-cloudflare-blog"
+main = "./dist/_worker.js/index.js"
 compatibility_date = "2026-02-16"
 compatibility_flags = ["nodejs_compat"]
 
 [vars]
-BETTER_AUTH_URL = "https://your-domain.example"
+BETTER_AUTH_URL = "https://astro-cloudflare-blog.kousaku-maron.workers.dev"
 
-[[kv_namespaces]]
-binding = "SESSION"
-id = "TODO_SESSION_KV_NAMESPACE_ID"
+[assets]
+binding = "ASSETS"
+directory = "./dist"
