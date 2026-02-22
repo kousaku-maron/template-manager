@@ -1,0 +1,4 @@
+DATABASE_URL=postgresql://<user>:<password>@<host>/<db>?sslmode=require
+BETTER_AUTH_SECRET=replace-with-long-random-secret
+BETTER_AUTH_URL=http://localhost:8787
+CORS_ORIGINS=http://localhost:1420,tauri://localhost

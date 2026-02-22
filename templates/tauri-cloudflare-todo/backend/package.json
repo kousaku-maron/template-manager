@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --port 8787",
+    "tauri:dev": "wrangler dev --port 8787",
+    "deploy": "wrangler deploy",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.1",
+    "better-auth": "^1.4.13",
+    "drizzle-orm": "^0.44.6",
+    "hono": "^4.6.10",
+    "nanoid": "^5.0.8"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240405.0",
+    "drizzle-kit": "^0.31.0",
+    "typescript": "^5.9.2",
+    "wrangler": "^4.45.0"
+  }
+}

@@ -1,0 +1,8 @@
+name = "tauri-cloudflare-todo-backend"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+BETTER_AUTH_URL = "https://tauri-cloudflare-todo-backend.kousaku-maron.workers.dev"
+CORS_ORIGINS = "http://localhost:1420,tauri://localhost"

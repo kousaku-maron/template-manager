@@ -1,0 +1,12 @@
+node_modules
+.pnpm-store
+
+app/node_modules
+app/dist
+app/src-tauri/target
+
+backend/node_modules
+backend/.wrangler
+
+.env
+.dev.vars

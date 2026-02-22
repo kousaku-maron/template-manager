@@ -1,62 +1,23 @@
 # @kousaku-maron/template-manager
 
-Download template directories from GitHub and scaffold projects from extracted files.
+npx コマンドでテンプレートをダウンロードし、プロジェクトをセットアップできます。
 
-## Usage
+## 使い方
 
 ```bash
-npx @kousaku-maron/template-manager --template=owner/repo/templates/my-template
+npx @kousaku-maron/template-manager --template=<テンプレート名> --dir=<出力先ディレクトリ>
 ```
 
-If you run without `--template`, the CLI shows an interactive template picker (`↑/↓` to move, `Enter` to select) and then asks the output directory (default: `.`):
+### テンプレート一覧
+
+| テンプレート名 | 説明 |
+| --- | --- |
+| `astro-cloudflare-blog` | Astro + Cloudflare を使ったブログテンプレート |
+| `tauri-cloudflare-todo` | Tauri + Hono + better-auth で作る認証付きカンバンテンプレート |
+
+### 例
 
 ```bash
-node ./bin/cli.js
-```
-
-## Development
-
-Source code is managed in TypeScript:
-
-- Edit `/Users/kurinokousaku/Workspace/maron/template-manager/src/cli.ts`
-- Build with `pnpm build` (outputs `/Users/kurinokousaku/Workspace/maron/template-manager/bin/cli.js`)
-
-## CLI Check
-
-Manual check examples:
-
-```bash
-node ./bin/cli.js --help
-node ./bin/cli.js --version
-node ./bin/cli.js --template=astro-cloudflare-blog --dir=tmp/astro-blog-test --force
-node ./bin/cli.js --template=kousaku-maron/template-manager/templates/astro-cloudflare-blog --dir=my-blog
-```
-
-## Options
-
-- `-t, --template` (required): Template source.
-- `-d, --dir`: Output directory. Default is the template folder name.
-- `-f, --force`: Overwrite destination directory if it exists.
-- `-h, --help`: Show help.
-- `-v, --version`: Show version.
-
-## Template format
-
-Both formats are supported:
-
-- `owner/repo/path/to/template`
-- `gh:owner/repo/path/to/template`
-- Included template alias (current): `astro-cloudflare-blog`
-
-## Included templates
-
-- `kousaku-maron/template-manager/templates/astro-cloudflare-blog`
-
-Examples:
-
-```bash
-npx @kousaku-maron/template-manager --template=cloudflare/templates/astro-blog-starter-template
-npx @kousaku-maron/template-manager --template=owner/repo/templates/next-app --dir=my-app
-npx @kousaku-maron/template-manager --template=astro-cloudflare-blog --dir=my-astro-cloudflare-blog
-npx @kousaku-maron/template-manager --template=kousaku-maron/template-manager/templates/astro-cloudflare-blog --dir=my-astro-cloudflare-blog
+npx @kousaku-maron/template-manager --template=astro-cloudflare-blog --dir=my-blog
+npx @kousaku-maron/template-manager --template=tauri-cloudflare-todo --dir=my-kanban
 ```

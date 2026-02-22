@@ -11,6 +11,8 @@ const VERSION = "0.1.0";
 const INCLUDED_TEMPLATES: Record<string, string> = {
   "astro-cloudflare-blog":
     "kousaku-maron/template-manager/templates/astro-cloudflare-blog",
+  "tauri-cloudflare-todo":
+    "kousaku-maron/template-manager/templates/tauri-cloudflare-todo",
 };
 
 type CliOptions = {
@@ -38,6 +40,7 @@ Examples:
   npx @kousaku-maron/template-manager --template=cloudflare/templates/astro-blog-starter-template
   npx @kousaku-maron/template-manager --template=owner/repo/templates/next-app --dir=my-app
   npx @kousaku-maron/template-manager --template=astro-cloudflare-blog --dir=my-blog
+  npx @kousaku-maron/template-manager --template=tauri-cloudflare-todo --dir=my-kanban
 `);
 }
 
@@ -128,7 +131,7 @@ function normalizeTemplate(input: string): string {
   }
   if (/^[^/]+\/[^/]+(\/.+)?$/.test(input)) return `gh:${input}`;
   fail(
-    "Invalid template format. Use owner/repo/path, gh:owner/repo/path, or one of: astro-cloudflare-blog",
+    "Invalid template format. Use owner/repo/path, gh:owner/repo/path, or one of: astro-cloudflare-blog, tauri-cloudflare-todo",
   );
 }
 

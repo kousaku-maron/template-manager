@@ -1,0 +1,10 @@
+{
+  "name": "tauri-cloudflare-todo",
+  "private": true,
+  "scripts": {
+    "dev": "node ./scripts/dev.mjs",
+    "dev:backend": "pnpm --filter backend dev",
+    "dev:app": "pnpm --filter app tauri:dev",
+    "build": "pnpm -r build"
+  }
+}
